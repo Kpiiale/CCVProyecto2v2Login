@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using CCVProyecto2v2.Models;
+using CCVProyecto2v2.ViewLogin;
 namespace CCVProyecto2v2;
 
 public static class MauiProgram
@@ -46,6 +47,9 @@ public static class MauiProgram
             var userManager = sp.GetRequiredService<UserManager<ApplicationUser>>();
             return new AuthService(signInManager, userManager);
         });
+
+        builder.Services.AddTransient<LoginViewModel>();
+        builder.Services.AddTransient<LoginViewIdentity>();
 
         builder.Services.AddTransient<AgregarEstudianteView>();
         builder.Services.AddTransient<EstudianteViewModel>();
