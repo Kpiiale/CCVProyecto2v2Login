@@ -32,7 +32,7 @@ namespace CCVProyecto2v2.DataAccess
                 {
                     UserName = "admin",
                     Nombre = "Administrador del Sistema",
-                    Rol = RolEnum.Administrador
+                    Rol = RolEnum1.Administrador
                 };
 
                 await _userManager.CreateAsync(admin, "admin");

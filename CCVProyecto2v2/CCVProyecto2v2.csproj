@@ -75,6 +75,9 @@
 	  <MauiXaml Update="ViewLogin\LoginView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="ViewLogin\LoginViewIdentity.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="ViewsAdmin\AgregarClaseView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
