@@ -12,6 +12,10 @@ namespace CCVProyecto2v2.DataAccess
         public DbSet<Estudiante> Estudiante { get; set; }
         public DbSet<Clase> Clase { get; set; }
         public DbSet<ClaseEstudiante> ClaseEstudiantes { get; set; }
+        public DbbContext()
+        {
+
+        }
 
         public DbbContext(DbContextOptions<DbbContext> options) : base(options) { }
 

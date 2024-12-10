@@ -11,5 +11,6 @@ public partial class InicioView : ContentPage
     public void Ingresar_Clicked(object sender, EventArgs e)
     {
         Navigation.PushAsync(new LoginViewIdentity());
+
     }
 }
