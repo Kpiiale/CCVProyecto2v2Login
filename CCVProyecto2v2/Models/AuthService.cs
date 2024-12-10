@@ -18,28 +18,59 @@ namespace CCVProyecto2v2.Models
             _userManager = userManager;
         }
 
-        public async Task<bool> Login(string username, string password)
+
+        public async Task<bool> LoginAsync(string username, string password)
         {
-            var result = await _signInManager.PasswordSignInAsync(username, password, isPersistent: false, lockoutOnFailure: false);
-            return result.Succeeded;
+            try
+            {
+
+                var result = await _signInManager.PasswordSignInAsync(username, password, isPersistent: false, lockoutOnFailure: false);
+
+                if (result.Succeeded)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al iniciar sesión: {ex.Message}");
+                return false;
+            }
         }
 
-        public async Task<bool> Register(string username, string password, RolEnum role, string nombre, int edad)
+
+        public async Task<bool> RegisterAsync(string username, string password, RolEnum1 rol, string nombre, int edad)
         {
-            var user = new ApplicationUser
+            try
             {
-                UserName = username,
-                Nombre = nombre,
-                Rol = role
-            };
 
-            var result = await _userManager.CreateAsync(user, password);
-            if (result.Succeeded)
-            {
-                await _userManager.AddToRoleAsync(user, role.ToString());
+                var user = new ApplicationUser
+                {
+                    UserName = username,
+                    Nombre = nombre,
+                    Rol = rol
+                };
+
+                var result = await _userManager.CreateAsync(user, password);
+
+                if (result.Succeeded)
+                {
+
+                    await _userManager.AddToRoleAsync(user, rol.ToString());
+                    return true;
+                }
+
+                return false;
             }
-
-            return result.Succeeded;
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al registrar el usuario: {ex.Message}");
+                return false;
+            }
         }
     }
 }

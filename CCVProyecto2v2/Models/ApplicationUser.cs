@@ -1,22 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity; 
+using Microsoft.AspNetCore.Identity;
 
-public enum RolEnum
+public enum RolEnum1
 {
     Administrador,
     Estudiante,
     Profesor
 }
 
-namespace CCVProyecto2v2.Models
+public class ApplicationUser : IdentityUser
 {
-    internal class ApplicationUser: IdentityUser
-    {
-        public string Nombre { get; set; }
-        public RolEnum Rol { get; set; }
-    }
+    [Required]
+    public string Nombre { get; set; }
+
+    [Required]
+    public RolEnum1 Rol { get; set; }
 }
+

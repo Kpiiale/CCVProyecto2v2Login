@@ -16,6 +16,7 @@ public static class MauiProgram
     {
         var builder = MauiApp.CreateBuilder();
 
+     
         builder
             .UseMauiApp<App>()
             .ConfigureFonts(fonts =>
@@ -26,21 +27,26 @@ public static class MauiProgram
                 fonts.AddFont("Schoolwork-Regular.ttf", "SchoolworkFont");
             });
 
+    
         builder.Services.AddDbContext<DbbContext>(options =>
             options.UseSqlite($"Filename={Path.Combine(FileSystem.AppDataDirectory, "CCVProyecto2.db")}"));
 
-        
+    
         builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<DbbContext>()
             .AddDefaultTokenProviders();
 
-       
+    
         builder.Services.AddTransient<DataSeeder>();
 
-       
-        builder.Services.AddTransient<AuthService>();
+      
+        builder.Services.AddTransient<AuthService>(sp =>
+        {
+            var signInManager = sp.GetRequiredService<SignInManager<ApplicationUser>>();
+            var userManager = sp.GetRequiredService<UserManager<ApplicationUser>>();
+            return new AuthService(signInManager, userManager);
+        });
 
-        
         builder.Services.AddTransient<AgregarEstudianteView>();
         builder.Services.AddTransient<EstudianteViewModel>();
         builder.Services.AddTransient<EMainPage>();
@@ -60,12 +66,11 @@ public static class MauiProgram
         builder.Services.AddTransient<UnirEViewModel>();
         builder.Services.AddTransient<UnirEstudianteView>();
 
-        
         using (var scope = builder.Services.BuildServiceProvider().CreateScope())
         {
             var services = scope.ServiceProvider;
-            var dbContext = services.GetRequiredService<DbbContext>();
 
+            var dbContext = services.GetRequiredService<DbbContext>();
             dbContext.Database.EnsureCreated();
 
             var seeder = services.GetRequiredService<DataSeeder>();
